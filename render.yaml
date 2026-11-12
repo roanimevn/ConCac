@@ -1,0 +1,23 @@
+# Blueprint cho Render: New -> Blueprint -> chọn repo.
+services:
+  - type: web
+    name: discord-sports-bot
+    runtime: python
+    plan: free                  # đổi thành "starter" ($7/tháng) nếu muốn không bao giờ ngủ
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    healthCheckPath: /health    # luôn trả HTTP 200
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: DISCORD_TOKEN
+        sync: false             # Render sẽ hỏi bạn nhập khi tạo Blueprint
+      - key: CHANNEL_ID
+        sync: false             # ID kênh nhận thông báo
+      - key: TIMEZONE
+        value: Asia/Ho_Chi_Minh
+      - key: SEED_LEAGUES
+        value: all
+      - key: SELF_PING_MINUTES
+        value: "5"
